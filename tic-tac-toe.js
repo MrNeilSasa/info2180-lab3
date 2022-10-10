@@ -34,7 +34,14 @@ window.onload = function(){
 
     function newGame(){
         circleturn = false;
+        target  = document.getElementById('status');
+        target.textContent = 'Move your mouse over a square and click to play an X or an O.';
+        target.classList.remove('you-won');
+
         positions.forEach(element => {
+            element.textContent = '';
+            element.classList.remove(x_turn);
+            element.classList.remove(O_turn);
             element.addEventListener('mouseover', hoverPos);
             element.addEventListener('mouseout', stopHover);
             element.removeEventListener('click', placeMark);
@@ -52,6 +59,7 @@ window.onload = function(){
             pos.textContent = "O";
             pos.classList.add(O_turn);
             pos.removeEventListener('mouseover', hoverPos);
+            //pos.removeEventListener('click', placeMark);
             if(victory(currentClass)){
                 status();
                 positions.forEach(element => {
@@ -69,6 +77,7 @@ window.onload = function(){
             pos.textContent = "X";
             pos.classList.add(x_turn);
             pos.removeEventListener('mouseover', hoverPos);
+            //pos.removeEventListener('click', placeMark);
             if(victory(currentClass)){
                 status();
                 positions.forEach(element => {
@@ -118,6 +127,8 @@ window.onload = function(){
         }
         
     }
+
+
 
 
 
