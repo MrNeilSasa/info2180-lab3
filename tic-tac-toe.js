@@ -10,7 +10,7 @@ window.onload = function(){
     const x_turn = 'X'
     const O_turn = 'O'
 
-    const Winning_Combinations = [
+    const winning_Combinations = [
     [0,1,2],
     [0,3,6],
     [3,4,5],
@@ -47,38 +47,76 @@ window.onload = function(){
 
     function placeMark(element){
         const pos = element.target;
+        const currentClass = circleturn ? O_turn : x_turn;
         if (circleturn){
             pos.textContent = "O";
             pos.classList.add(O_turn);
             pos.removeEventListener('mouseover', hoverPos);
-            circleturn = false;
+            if(victory(currentClass)){
+                status();
+                positions.forEach(element => {
+                    element.removeEventListener('mouseover', hoverPos);
+                    element.removeEventListener('click', placeMark);
+                });
+              
+            }else{
+                circleturn = false;
+            
+            }
+            console.log(victory(currentClass));
+            
         } else {
             pos.textContent = "X";
             pos.classList.add(x_turn);
             pos.removeEventListener('mouseover', hoverPos);
-            circleturn = true;
+            if(victory(currentClass)){
+                status();
+                positions.forEach(element => {
+                    element.removeEventListener('mouseover', hoverPos);
+                    element.removeEventListener('click', placeMark);
+                });
+            }else{
+                circleturn = true;
+            
+            }
+            console.log(victory(currentClass));
         }
         
     }
 
     function hoverPos(element){
-        const pos = element.target;
-        if (circleturn){
-            pos.classList.add('hover');  
-        } else {
-            pos.classList.add('hover');
-        }
+        const pos = element.target;      
+        pos.classList.add('hover');  
     }
 
     function stopHover(element){
         const pos = element.target;
-        if (circleturn){
-            pos.classList.remove('hover');
 
-        } else {
-            pos.classList.remove('hover');
 
+        pos.classList.remove('hover');
+
+
+    }
+
+    function victory(currentClass){
+        return winning_Combinations.some(combo =>{
+            return combo.every(index => {
+                return positions[index].classList.contains(currentClass)
+            })
+        })
+    }
+
+    function status(){
+        let target = document.getElementById('status');
+        if(circleturn){
+            
+            target.textContent = 'Congratulations! O is the Winner!';
+            target.classList.add('you-won');
+        } else{
+            target.textContent = 'Congratulations! X is the Winner!';
+            target.classList.add('you-won');
         }
+        
     }
 
 
