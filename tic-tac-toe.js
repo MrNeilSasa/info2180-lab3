@@ -35,6 +35,8 @@ window.onload = function(){
     function newGame(){
         circleturn = false;
         positions.forEach(element => {
+            element.addEventListener('mouseover', hoverPos);
+            element.addEventListener('mouseout', stopHover);
             element.removeEventListener('click', placeMark);
             element.addEventListener('click', placeMark);
 
@@ -48,13 +50,35 @@ window.onload = function(){
         if (circleturn){
             pos.textContent = "O";
             pos.classList.add(O_turn);
+            pos.removeEventListener('mouseover', hoverPos);
             circleturn = false;
         } else {
             pos.textContent = "X";
             pos.classList.add(x_turn);
+            pos.removeEventListener('mouseover', hoverPos);
             circleturn = true;
         }
         
+    }
+
+    function hoverPos(element){
+        const pos = element.target;
+        if (circleturn){
+            pos.classList.add('hover');  
+        } else {
+            pos.classList.add('hover');
+        }
+    }
+
+    function stopHover(element){
+        const pos = element.target;
+        if (circleturn){
+            pos.classList.remove('hover');
+
+        } else {
+            pos.classList.remove('hover');
+
+        }
     }
 
 
