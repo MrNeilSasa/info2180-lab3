@@ -59,7 +59,7 @@ window.onload = function(){
             pos.textContent = "O";
             pos.classList.add(O_turn);
             pos.removeEventListener('mouseover', hoverPos);
-            //pos.removeEventListener('click', placeMark);
+            pos.removeEventListener('click', placeMark);
             if(victory(currentClass)){
                 status();
                 positions.forEach(element => {
@@ -77,7 +77,7 @@ window.onload = function(){
             pos.textContent = "X";
             pos.classList.add(x_turn);
             pos.removeEventListener('mouseover', hoverPos);
-            //pos.removeEventListener('click', placeMark);
+            pos.removeEventListener('click', placeMark);
             if(victory(currentClass)){
                 status();
                 positions.forEach(element => {
